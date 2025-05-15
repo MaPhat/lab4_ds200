@@ -1,5 +1,5 @@
 from trainer import SparkConfig, Trainer
-from models import SVM
+from models import SVM, model_LeNet5
 from transforms import RandomHorizontalFlip, Normalize, Transforms
 
 transforms = Transforms([
@@ -13,8 +13,9 @@ transforms = Transforms([
 if __name__ == "__main__":
     sparkconfig = SparkConfig()
 
-    model = SVM(loss='squared_hinge', penalty='l2')
+    # model = SVM(loss='squared_hinge', penalty='l2')
+    mymodel = model_LeNet5()
 
-    trainer = Trainer(model=model, spark_config=sparkconfig, transforms=transforms)
+    trainer = Trainer(model=mymodel, spark_config=sparkconfig, transforms=transforms)
 
     trainer.train()

@@ -35,6 +35,7 @@ class Dataloader:
     def parse_stream(self) -> DStream:
         json_stream = self.stream.map(lambda line : json.loads(line))
         json_stream_exploded = json_stream.flatMap(lambda x : x.values())
+        json_stream_exploded = json_stream_exploded.map(lambda x : list(x.values()))
         pixels = json_stream_exploded.map(lambda x : [np.array([x[:-1]]).reshape(32,32,3).astype(np.uint8), x[-1]])
         pixels = Dataloader.preprossing(pixels, self.transforms)
 
